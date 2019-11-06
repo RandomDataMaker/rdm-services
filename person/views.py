@@ -26,7 +26,7 @@ class PersonView(View):
 
     def post(self, request, number=1):
         for i in range(0, number):
-            # TODO: put here generate
+            # TODO: put here code for generate
             pass
         return HttpResponse(status=201)
 
