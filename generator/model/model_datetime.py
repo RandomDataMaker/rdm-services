@@ -13,6 +13,9 @@ class ModelDateTime(ModelEntity):
         self.max_date = model_description['max_date']
         self.date_format = self.default_date_format
 
+        if self.max_date < self.min_date:
+            self.max_date, self.min_date = self.min_date, self.max_date
+
         if 'date_format' in model_description:
             self.date_format = model_description['date_format']
 
@@ -32,9 +35,14 @@ class ModelDateTime(ModelEntity):
         This function will return a random datetime between two dates
         as strings
         """
-
-        date_start = datetime.strptime(self.min_date, self.date_format)
-        date_end = datetime.strptime(self.max_date, self.date_format)
+        if self.min_date == 'today':
+            date_start = datetime.today()
+        else:
+            date_start = datetime.strptime(self.min_date, self.date_format)
+        if self.max_date == 'today':
+            date_end = datetime.today()
+        else:
+            date_end = datetime.strptime(self.max_date, self.date_format)
         value = ModelDateTime.__generate_random_datetime(date_start, date_end)
 
         return value
