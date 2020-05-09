@@ -1,5 +1,7 @@
+import io
 import json
 from abc import abstractmethod
+
 
 class ModelEntity:
     def __init__(self, model_description):
@@ -11,8 +13,8 @@ class ModelEntity:
 
     @staticmethod
     def parse_model(filepath):
-        with open(filepath) as json_file:
-            data = json.load(json_file)
+        with io.open(filepath, encoding='utf-8-sig') as json_data:
+            data = json.loads(json_data.read())
             entities = data['model']
 
             return entities

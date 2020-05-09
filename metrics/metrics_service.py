@@ -12,7 +12,7 @@ from person.models import Person
 class MetricsService:
 
     def __init__(self):
-        self.attributes_service = AttributesService('resources/model.json')
+        self.attributes_service = AttributesService('resources/attributes.model.json')
 
     def create_metrics(self):
         metrics = PatientMetrics()
