@@ -5,11 +5,13 @@ from datetime import timedelta
 
 
 class ModelDateTime(ModelEntity):
+    default_date_format = '%m/%d/%Y %I:%M %p'
+
     def __init__(self, model_description):
         super().__init__(model_description)
         self.min_date = model_description['min_date']
         self.max_date = model_description['max_date']
-        self.date_format = '%m/%d/%Y %I:%M %p'
+        self.date_format = self.default_date_format
 
         if 'date_format' in model_description:
             self.date_format = model_description['date_format']

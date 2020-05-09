@@ -12,7 +12,7 @@ class GeneratorView(View):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.person_service = PersonService()
+        self.person_service = PersonService('resources/person.model.json')
         self.metrics_service = MetricsService()
 
     def post(self, request, number=1):

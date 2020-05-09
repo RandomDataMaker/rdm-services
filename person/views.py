@@ -13,7 +13,7 @@ class PersonView(View):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.person_service = PersonService()
+        self.person_service = PersonService('resources/person.model.json')
 
     def get(self, request):
         """
