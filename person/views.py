@@ -1,11 +1,6 @@
 from django.http import HttpResponse, JsonResponse
 from django.views import View
 from person.models import Person
-from datetime import datetime
-from random import randrange
-from datetime import timedelta
-import random
-
 from person.person_service import PersonService
 
 
@@ -18,15 +13,24 @@ class PersonView(View):
     def get(self, request):
         """
         Http get method to get all persons or person with given pesel
-        Example url to get person by pesel: localhost:8000/person/12345678901
-        :param request: has string parameter pesel
+        and anonymized according to anonymize array (e.g. email,pesel or none )
+        Example url to get person by pesel: localhost:8000/person/?pesel=12345678901
+        :param pesel: if provided finds only person with this pesel
+        :param anonymize_array: array of attributes to anonymize, default - all
         :return: JSON response
         """
         pesel = request.GET.get('pesel')
+        anonymize_array = request.GET.get('anonymize_array')
+        if anonymize_array is None or anonymize_array == "":
+            anonymize_array = "first_name,last_name,pesel,email,phone,sex,birth_date"
         if pesel:
             person = list(Person.objects.filter(pesel=pesel).values())[0]
+            person = self.person_service.anonymize(person, anonymize_array)
+            return JsonResponse(person, safe=False)
         else:
             person_list = list(Person.objects.all().values())
+            for person in person_list:
+                self.person_service.anonymize(person, anonymize_array)
             return JsonResponse(person_list, safe=False)
 
     def post(self, request, number=1):
