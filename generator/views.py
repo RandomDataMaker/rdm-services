@@ -40,8 +40,10 @@ class GeneratorView(View):
         :param number: number of generated persons, default is 1
         :return: http status for created
         """
-        if table == 'metrics':
+        if table == 'attributes':
             MetricsAttributes.objects.all().delete()
+
+        elif table == 'metrics':
             PatientMetrics.objects.all().delete()
 
         elif table == 'person':
