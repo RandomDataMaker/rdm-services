@@ -156,6 +156,7 @@ class PersonService:
         for c in password_chars:
             password += c
 
+        password = hashlib.sha3_256(password.encode("utf-8")).hexdigest()
         return password
 
     def __generate_pesel(self, date, sex):
