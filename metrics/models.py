@@ -12,7 +12,7 @@ class PatientMetrics(models.Model):
     notes = models.CharField(max_length=1024)
 
     def __str__(self):
-        return self.patient_id + " " + self.doctor_id + " " + str(self.created) + " " + self.notes
+        return str(self.patient_id) + " " + self.doctor_id + " " + str(self.created) + " " + self.notes
 
     class Meta:
         db_table = "peselgen_metrics"
