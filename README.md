@@ -16,6 +16,9 @@ Random Data Maker is a REST webservice for generation random data sets of define
 * sqlparse 0.3.0
 
 ## Run  
+### Docker
+`docker-compose up`
+### Manual
 To run this app you will need MySQL database that you can create from dockerfile inside project `docker-compose.yml`. Then you must do migrations: 
 * `python manage.py makemigrations <appname> `
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; where \<appname\> could be 'person', 'metrics', or 'attributes'  
