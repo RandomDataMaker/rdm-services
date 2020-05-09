@@ -63,6 +63,13 @@
       "max_date": "1970/12/1 1:30 PM",
       "date_format": "%Y/%m/%d %I:%M %p",
       "count": 2
+    },
+    {
+      "key": "normal distribution",
+      "distribution": "normal",
+      "mu": 0,
+      "sigma": 0.1,
+      "count": 10
     }
   ]
 }

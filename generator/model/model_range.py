@@ -20,7 +20,6 @@ class ModelRange(ModelEntity):
             self.maximum, self.minimum = self.minimum, self.maximum
 
     def generate_values(self):
-        value = 0
         if type(self.maximum) is float or type(self.minimum) is float:
             value = []
             for i in range(self.count):

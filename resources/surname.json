@@ -1,0 +1,27 @@
+{
+  "model":
+  [
+
+    {
+      "key": "vowel",
+      "array": ["a", "e", "i", "o", "u", "y"],
+      "weights": [1,1,1,1,1,1]
+    },
+        {
+      "key": "consonants",
+      "array": ["b", "c", "d", "g", "h", "j", "k", "l", "m", "n", "p", "r", "s", "t", "w", "z"],
+      "weights": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+    },
+        {
+      "key": "male_surname_ends",
+      "array": ["ski", "cki", "dzki", "ak", "ek", "ik", "yk", "ki", "owicz", "eowicz", "ewicz", "el", "ny",
+                             "uk", "in", "ny"],
+      "weights": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+    },
+        {
+      "key": "female_surname_ends",
+      "array": ["ska", "cka", "dzka", "ak", "ek", "ik", "yk", "ka", "owicz", "eowicz", "na", "ul", "uk"],
+      "weights": [1,1,1,1,1,1,1,1,1,1,1,1,1]
+    }
+  ]
+}
