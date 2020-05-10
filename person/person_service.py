@@ -1,11 +1,8 @@
 import re
 import string
 from datetime import datetime
-from random import randrange
-from datetime import timedelta
 import random
 import logging
-import hashlib
 
 from generator.generator import generate_values_dynamically
 from generator.model.model_datetime import ModelDateTime
@@ -31,20 +28,6 @@ class PersonService:
         person.password = self.__generate_password()
         logging.basicConfig(level=logging.DEBUG)
         logging.info(f"Created person {person.first_name} {person.last_name} with pesel {person.pesel}")
-        return person
-
-    def anonymize(self, person, anonymize_array):
-        person["hash"] = ""
-        person["password"] = ""
-        anonymize_array = anonymize_array.split(',')
-        if anonymize_array[0] == 'none':
-            return person
-
-        for item in anonymize_array:
-            person["hash"] += str(person[item])
-            person[item] = ""
-
-        person["hash"] = hashlib.sha3_256(person["hash"].encode('utf-8')).hexdigest()
         return person
 
     def __generate_values(self):

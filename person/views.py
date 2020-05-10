@@ -2,6 +2,7 @@ from django.http import HttpResponse, JsonResponse
 from django.views import View
 from person.models import Person
 from person.person_service import PersonService
+from anonymization.anonymize import anonymize
 
 
 class PersonView(View):
@@ -30,12 +31,13 @@ class PersonView(View):
             if not person:
                 return HttpResponse(status=404)
             else:
-                person = self.person_service.anonymize(person, anonymize_array)
+                person = anonymize(person, anonymize_array)
+                print(person)
                 return JsonResponse(person[0], safe=False)
         else:
             person_list = list(Person.objects.all().values())
             for person in person_list:
-                self.person_service.anonymize(person, anonymize_array)
+                anonymize(person, anonymize_array)
             return JsonResponse(person_list, safe=False)
 
     def post(self, request, number=1):
