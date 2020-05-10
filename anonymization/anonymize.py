@@ -7,9 +7,12 @@ def anonymize(obj, anonymize_array):
     if anonymize_array[0] == 'none':
         return obj
 
-    for item in anonymize_array:
-        tmp_hash += str(obj[item])
-        obj[item] = ""
+    result = dict()
+    for obj_key in obj.keys():
+        if obj_key in anonymize_array:
+            tmp_hash += str(obj[obj_key])
+        else:
+            result[obj_key] = obj[obj_key]
 
-    obj["hash"] = hashlib.sha3_256(tmp_hash.encode('utf-8')).hexdigest()
-    return obj
+    result["hash"] = hashlib.sha3_256(tmp_hash.encode('utf-8')).hexdigest()
+    return result

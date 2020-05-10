@@ -23,7 +23,7 @@ class PersonView(View):
         pesel = request.GET.get('pesel')
         anonymize_array = request.GET.get('anonymize_array')
         if anonymize_array is None or anonymize_array == "":
-            anonymize_array = "first_name,last_name,pesel,email,phone,sex,birth_date"
+            anonymize_array = "id,first_name,last_name,pesel,password,email,phone,sex,birth_date"
         if pesel:
             person = list(Person.objects.filter(pesel=pesel).values())
             if len(person) > 1:
@@ -31,9 +31,8 @@ class PersonView(View):
             if not person:
                 return HttpResponse(status=404)
             else:
-                person = anonymize(person, anonymize_array)
-                print(person)
-                return JsonResponse(person[0], safe=False)
+                person = anonymize(person[0], anonymize_array)
+                return JsonResponse(person, safe=False)
         else:
             person_list = list(Person.objects.all().values())
             for person in person_list:
