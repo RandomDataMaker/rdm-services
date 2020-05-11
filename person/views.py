@@ -13,7 +13,7 @@ class PersonView(View):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.person_service = PersonService()
+        self.person_service = PersonService('resources/person.model.json')
 
     def get(self, request):
         """
@@ -24,7 +24,13 @@ class PersonView(View):
         """
         pesel = request.GET.get('pesel')
         if pesel:
-            person = list(Person.objects.filter(pesel=pesel).values())[0]
+            person = list(Person.objects.filter(pesel=pesel).values())
+            if len(person) > 1:
+                return HttpResponse(status=500)
+            if not person:
+                return HttpResponse(status=404)
+            else:
+                return JsonResponse(person[0], safe=False)
         else:
             person_list = list(Person.objects.all().values())
             return JsonResponse(person_list, safe=False)

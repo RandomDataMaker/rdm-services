@@ -12,7 +12,7 @@ class GeneratorView(View):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.person_service = PersonService()
+        self.person_service = PersonService('resources/person.model.json')
         self.metrics_service = MetricsService()
 
     def post(self, request, number=1):
@@ -40,8 +40,10 @@ class GeneratorView(View):
         :param number: number of generated persons, default is 1
         :return: http status for created
         """
-        if table == 'metrics':
+        if table == 'attributes':
             MetricsAttributes.objects.all().delete()
+
+        elif table == 'metrics':
             PatientMetrics.objects.all().delete()
 
         elif table == 'person':
