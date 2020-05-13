@@ -2,7 +2,21 @@
 version: '3.1'
 
 services:
-
+  web:
+    restart: always
+    build: .    
+    volumes:
+      - .:/code
+    environment:
+      VIRTUAL_HOST: rdm.sarian.me
+      LETSENCRYPT_HOST: rdm.sarian.me
+      LETSENCRYPT_EMAIL: starwars.maciek@gmail.com
+    ports:
+      - "8090:8090" 
+    depends_on:
+      - "db"
+    networks:
+      - webproxy
   db:
     image: mysql:latest
     command: --default-authentication-plugin=mysql_native_password
@@ -12,3 +26,13 @@ services:
       MYSQL_ROOT_PASSWORD: q1w2e3r4
     ports:
       - 33069:3306
+    volumes:
+      - rdm-db:/var/lib/mysql      
+    networks:
+      - webproxy
+  
+volumes:
+   rdm-db:
+networks:
+  webproxy:
+    external: true
