@@ -20,18 +20,6 @@ class MetricsView(View):
         :param request: has string parameter pesel
         :return: JSON response
         """
-        # attr_id = request.GET.get('id')
-        #         if attr_id:
-        #             attr = list(MetricsAttributes.objects.filter(id=attr_id).values())
-        #             if len(attr) > 1:
-        #                 return HttpResponse(status=500)
-        #             if not attr:
-        #                 return HttpResponse(status=404)
-        #             else:
-        #                 return JsonResponse(attr[0], safe=False)
-        #         else:
-        #             attributes_list = list(MetricsAttributes.objects.all().values())
-        #             return JsonResponse(attributes_list, safe=False)
 
         metric_id = request.GET.get('id')
         patient_id = request.GET.get('patient_id')
