@@ -1,5 +1,5 @@
 # Random Data Maker
-[![RandomDataMaker](https://circleci.com/gh/RandomDataMaker/rdm-services.svg?style=shield)](<LINK>)
+[![RandomDataMaker](https://circleci.com/gh/RandomDataMaker/rdm-services.svg?style=shield)](https://circleci.com/gh/RandomDataMaker/rdm-services)
 ## Overview
 Random Data Maker is a REST webservice for generation random data sets from a defined model, including personal data and medical metrics data for machine learning, tests, mocks etc..
 
