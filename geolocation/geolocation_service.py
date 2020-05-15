@@ -2,7 +2,7 @@
 from django.db import models
 import pycristoforo as pyc
 from person.models import Person
-from gelocation.models import MetricsAttributes
+from geolocation.models import MetricsAttributes
 import random
 import logging
 
