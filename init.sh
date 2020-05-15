@@ -1,3 +1,4 @@
+
 #! /bin/sh 
 echo "Waiting 15s for DB" 
 sleep 15 

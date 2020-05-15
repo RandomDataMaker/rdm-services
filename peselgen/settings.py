@@ -25,7 +25,7 @@ SECRET_KEY = 'c#*q^xzw!zcnkljloyz66kxgx$^*d@jcp0a4n0mqv(3oa%^$b+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['rdm.sarian.me']
 
 
 # Application definition
