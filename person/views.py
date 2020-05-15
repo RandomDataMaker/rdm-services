@@ -1,11 +1,12 @@
 from django.http import HttpResponse, JsonResponse
-from django.views import View
+from rest_framework.views import APIView
+
 from person.models import Person
 from person.person_service import PersonService
 from anonymization.anonymize import anonymize
 
 
-class PersonView(View):
+class PersonView(APIView):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

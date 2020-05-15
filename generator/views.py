@@ -1,5 +1,5 @@
 from django.http import HttpResponse, JsonResponse
-from django.views import View
+from rest_framework.views import APIView
 
 from attributes.models import MetricsAttributes
 from metrics.metrics_service import MetricsService
@@ -8,7 +8,7 @@ from person.models import Person
 from person.person_service import PersonService
 
 
-class GeneratorView(View):
+class GeneratorView(APIView):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

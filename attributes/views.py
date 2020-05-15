@@ -1,11 +1,11 @@
 from django.http import JsonResponse, HttpResponse
-from django.views import View
+from rest_framework.views import APIView
 
 from attributes.attributes_service import AttributesService
 from attributes.models import MetricsAttributes
 
 
-class AttributesView(View):
+class AttributesView(APIView):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

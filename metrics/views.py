@@ -1,13 +1,13 @@
 import multiprocessing
 
 from django.http import HttpResponse, JsonResponse
-from django.views import View
+from rest_framework.views import APIView
 
 from metrics.metrics_service import MetricsService
 from metrics.models import PatientMetrics
 
 
-class MetricsView(View):
+class MetricsView(APIView):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
