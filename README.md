@@ -1,12 +1,14 @@
 # Random Data Maker
+[![RandomDataMaker](https://circleci.com/gh/RandomDataMaker/rdm-services.svg?style=shield)](https://circleci.com/gh/RandomDataMaker/rdm-services)
 ## Overview
-Random Data Maker is a REST webservice for generation random data sets of defined model, including personal data and medical metrics data for machine learning, tests, mocks etc..
+Random Data Maker is a REST webservice for generation random data sets from a defined model, including personal data and medical metrics data for machine learning, tests, mocks etc..
 
 ## Requirements 
 ##### Software: 
 * Python 3.7.5
 * MySQL 8.0 with Docker support provided
 ##### Frameworks & libraries:
+See `requirements.txt`
 * Django 2.2.7
 * django-cors-headers 3.1.1
 * djangorestframework 3.10.3
@@ -17,15 +19,26 @@ Random Data Maker is a REST webservice for generation random data sets of define
 
 ## Run  
 ### Docker
-`docker-compose up`
-### Manual
-To run this app you will need MySQL database that you can create from dockerfile inside project `docker-compose.yml`. Then you must do migrations: 
-* `python manage.py makemigrations <appname> `
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; where \<appname\> could be 'person', 'metrics', or 'attributes'  
-* `python manage.py migrate`
+Create external docker network named `webproxy` 
+* `docker network create webproxy`
 
-And run app: 
-* `python manage.py runserver`
+Run container stack
+* `docker-compose up`
+### Manual
+To run this app you will need an external MySQL database, either your own, or one created using dockerfile from inside of the project
+* `docker-compose -f docker-compose-db-only.yml`. 
+
+Install virtual environments 
+* `python3 -m venv venv`
+ * `. venv/bin/activate`
+ * `pip install -r requirements.txt`
+
+Make migrations
+* `python manage.py makemigrations`
+* `python manage.py migrate --settings=peselgen.settings-dev`
+
+And run the app: 
+* `python manage.py runserver --settings=peselgen.settings-dev`
 
 ## Endpoints  
 `/person` - method: GET - returns generated persons  
