@@ -22,4 +22,5 @@ urlpatterns = [
     path('metrics/', include('metrics.urls')),
     path('generate/', include('generator.urls')),
     path('attributes/', include('attributes.urls')),
+    path('geolocation/', include('geolocation.urls'))
 ]

@@ -2,7 +2,7 @@ import jsonfield
 from django.db import models
 
 
-class MetricsAttributes(models.Model):
+class Geolocation(models.Model):
     person_id = models.CharField(max_length=30)
     geojson = jsonfield.JSONField()
 

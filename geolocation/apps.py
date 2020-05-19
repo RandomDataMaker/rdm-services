@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class GelocationConfig(AppConfig):
+class GeolocationConfig(AppConfig):
     name = 'geolocation'

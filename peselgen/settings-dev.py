@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'person',
     'metrics',
     'generator',
-    'attributes'
+    'attributes',
+    'geolocation'
 ]
 
 MIDDLEWARE = [
