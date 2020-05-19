@@ -1,8 +1,6 @@
 import re
 import string
 from datetime import datetime
-from random import randrange
-from datetime import timedelta
 import random
 import logging
 

@@ -10,7 +10,7 @@ class Person(models.Model):
     pesel = models.CharField(max_length=11)
     email = models.CharField(max_length=64)
     phone = models.CharField(max_length=12)
-    password = models.CharField(max_length=16)
+    password = models.CharField(max_length=64)
     # true means that person is a male
     sex = models.CharField(max_length=1)
     birth_date = models.DateTimeField(default=datetime.now)
