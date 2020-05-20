@@ -1,26 +1,33 @@
 from django.http import HttpResponse, JsonResponse
 from rest_framework.views import APIView
-
+from drf_yasg.utils import swagger_auto_schema
 from person.models import Person
 from person.person_service import PersonService
 from anonymization.anonymize import anonymize
+from person.serializer import PersonSerializer
+from person.swagger_variables import get_parameters, get_responses, post_responses, post_parameters
 
 
-class PersonView(APIView):
+class PersonView(APIView):  # GenericAPIView
+    """
+        Person documentation
+    """
+
+    serializer_class = PersonSerializer
+    model = Person
+    queryset = Person.objects.all()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.person_service = PersonService('resources/person.model.json')
 
+    @swagger_auto_schema(
+        manual_parameters=get_parameters,
+        responses=get_responses,
+        operation_id='List of persons',
+        operation_description='This endpoint returns list of persons in database or specified person',
+    )
     def get(self, request):
-        """
-        Http get method to get all persons or person with given pesel
-        and anonymized according to anonymize array (e.g. email,pesel or none )
-        Example url to get person by pesel: localhost:8000/person/?pesel=12345678901
-        :param pesel: if provided finds only person with this pesel
-        :param anonymize_array: array of attributes to anonymize, default - all
-        :return: JSON response
-        """
         pesel = request.GET.get('pesel')
         anonymize_array = request.GET.get('anonymize_array')
         if anonymize_array is None or anonymize_array == "":
@@ -35,20 +42,37 @@ class PersonView(APIView):
                 person = anonymize(person[0], anonymize_array)
                 return JsonResponse(person, safe=False)
         else:
-            person_list = list(Person.objects.all().values())
-            for person in person_list:
-                anonymize(person, anonymize_array)
+            person_list = [anonymize(person, anonymize_array) for person in list(Person.objects.all().values())]
             return JsonResponse(person_list, safe=False)
 
+    @swagger_auto_schema(
+        responses=post_responses,
+        operation_id='Generate person',
+        operation_description='This endpoint generates person with random personal data',
+    )
+    def post(self, request):
+        person = self.person_service.create_person()
+        person.save()
+        return HttpResponse(status=201)
+
+
+class PersonCreateView(APIView):
+    serializer_class = PersonSerializer
+    model = Person
+    queryset = Person.objects.all()
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.person_service = PersonService('resources/person.model.json')
+
+    @swagger_auto_schema(
+        manual_parameters=post_parameters,
+        responses=post_responses,
+        operation_id='Generate number of persons',
+        operation_description='This endpoint generates persons with random personal data',
+    )
     def post(self, request, number=1):
-        """
-        Http method to generate persons and save them to database
-        Example url to generate six persons: localhost:8000/person/6
-        :param number: number of generated persons, default is 1
-        :return: http status for created
-        """
         for i in range(0, number):
-            # creating new object
             person = self.person_service.create_person()
             person.save()
         return HttpResponse(status=201)
