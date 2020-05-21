@@ -1,10 +1,11 @@
-import multiprocessing
-
 from django.http import HttpResponse, JsonResponse
 from rest_framework.views import APIView
 
 from metrics.metrics_service import MetricsService
 from metrics.models import PatientMetrics
+from drf_yasg.utils import swagger_auto_schema
+
+from metrics.swagger import MetricSwagger
 
 
 class MetricsView(APIView):
@@ -13,14 +14,13 @@ class MetricsView(APIView):
         super().__init__(**kwargs)
         self.metrics_service = MetricsService()
 
+    @swagger_auto_schema(
+        manual_parameters=MetricSwagger.get_parameters,
+        responses=MetricSwagger.get_responses,
+        operation_id='List of metrics',
+        operation_description='This endpoint returns list of metrics or specified metric or metrics for one patient',
+    )
     def get(self, request):
-        """
-        Http get method to get all persons or person with given pesel
-        Example url to get person by pesel: localhost:8000/person/12345678901
-        :param request: has string parameter pesel
-        :return: JSON response
-        """
-
         metric_id = request.GET.get('id')
         patient_id = request.GET.get('patient_id')
         if metric_id:
@@ -41,13 +41,13 @@ class MetricsView(APIView):
         metrics_list = list(PatientMetrics.objects.all().values())
         return JsonResponse(metrics_list, safe=False)
 
+    @swagger_auto_schema(
+        manual_parameters=MetricSwagger.post_parameters,
+        responses=MetricSwagger.post_responses,
+        operation_id='Generate metrics',
+        operation_description='This endpoint generates random metrics',
+    )
     def post(self, request, number=1):
-        """
-        Http method to generate persons and save them to database
-        Example url to generate six persons: localhost:8000/person/6
-        :param number: number of generated persons, default is 1
-        :return: http status for created
-        """
         for i in range(0, number):
             metrics = self.metrics_service.create_metrics()
             metrics.save()

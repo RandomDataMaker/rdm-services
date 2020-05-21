@@ -5,7 +5,7 @@ from person.models import Person
 from person.person_service import PersonService
 from anonymization.anonymize import anonymize
 from person.serializer import PersonSerializer
-from person.swagger_variables import get_parameters, get_responses, post_responses, post_parameters
+from person.swagger import PersonSwagger
 
 
 class PersonView(APIView):  # GenericAPIView
@@ -22,8 +22,8 @@ class PersonView(APIView):  # GenericAPIView
         self.person_service = PersonService('resources/person.model.json')
 
     @swagger_auto_schema(
-        manual_parameters=get_parameters,
-        responses=get_responses,
+        manual_parameters=PersonSwagger.get_parameters,
+        responses=PersonSwagger.get_responses,
         operation_id='List of persons',
         operation_description='This endpoint returns list of persons in database or specified person',
     )
@@ -46,7 +46,7 @@ class PersonView(APIView):  # GenericAPIView
             return JsonResponse(person_list, safe=False)
 
     @swagger_auto_schema(
-        responses=post_responses,
+        responses=PersonSwagger.post_responses,
         operation_id='Generate person',
         operation_description='This endpoint generates person with random personal data',
     )
@@ -66,8 +66,8 @@ class PersonCreateView(APIView):
         self.person_service = PersonService('resources/person.model.json')
 
     @swagger_auto_schema(
-        manual_parameters=post_parameters,
-        responses=post_responses,
+        manual_parameters=PersonSwagger.post_parameters,
+        responses=PersonSwagger.post_responses,
         operation_id='Generate number of persons',
         operation_description='This endpoint generates persons with random personal data',
     )

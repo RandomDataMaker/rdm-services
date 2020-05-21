@@ -3,6 +3,8 @@ from rest_framework.views import APIView
 
 from attributes.attributes_service import AttributesService
 from attributes.models import MetricsAttributes
+from drf_yasg.utils import swagger_auto_schema
+from attributes.swagger import AttributeSwagger
 
 
 class AttributesView(APIView):
@@ -11,13 +13,13 @@ class AttributesView(APIView):
         super().__init__(**kwargs)
         self.attributes_service = AttributesService('resources/attributes.model.json')
 
+    @swagger_auto_schema(
+        manual_parameters=AttributeSwagger.get_parameters,
+        responses=AttributeSwagger.get_responses,
+        operation_id='List of attributes',
+        operation_description='This endpoint returns list of attributes in database or specified attribute',
+    )
     def get(self, request):
-        """
-        Http get method to get all persons or person with given pesel
-        Example url to get person by pesel: localhost:8000/person/12345678901
-        :param request: has string parameter pesel
-        :return: JSON response
-        """
         attr_id = request.GET.get('id')
         if attr_id:
             attr = list(MetricsAttributes.objects.filter(id=attr_id).values())
@@ -31,13 +33,13 @@ class AttributesView(APIView):
             attributes_list = list(MetricsAttributes.objects.all().values())
             return JsonResponse(attributes_list, safe=False)
 
+    @swagger_auto_schema(
+        manual_parameters=AttributeSwagger.post_parameters,
+        responses=AttributeSwagger.post_responses,
+        operation_id='List of attributes',
+        operation_description='This endpoint returns list of attributes in database or specified attribute',
+    )
     def post(self, request, number=1):
-        """
-        Http method to generate persons and save them to database
-        Example url to generate six persons: localhost:8000/person/6
-        :param number: number of generated persons, default is 1
-        :return: http status for created
-        """
         for i in range(0, number):
             attributes = self.attributes_service.generate_attributes()
             attributes.save()
