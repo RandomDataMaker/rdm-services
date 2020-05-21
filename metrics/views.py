@@ -1,26 +1,28 @@
-import multiprocessing
-
 from django.http import HttpResponse, JsonResponse
-from django.views import View
+from rest_framework.utils import json
+from rest_framework.views import APIView
 
 from metrics.metrics_service import MetricsService
 from metrics.models import PatientMetrics
+from drf_yasg.utils import swagger_auto_schema
+
+from metrics.swagger import MetricSwagger
 
 
-class MetricsView(View):
+class MetricsView(APIView):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.metrics_service = MetricsService()
 
+    @swagger_auto_schema(
+        manual_parameters=MetricSwagger.get_parameters,
+        responses=MetricSwagger.get_responses,
+        operation_id='List of metrics',
+        operation_description='This endpoint returns list of metrics or specified metric or metrics for one patient',
+        operation_summary="Get all metrics or find by id or patient id"
+    )
     def get(self, request):
-        """
-        Http get method to get all persons or person with given pesel
-        Example url to get person by pesel: localhost:8000/person/12345678901
-        :param request: has string parameter pesel
-        :return: JSON response
-        """
-
         metric_id = request.GET.get('id')
         patient_id = request.GET.get('patient_id')
         if metric_id:
@@ -41,15 +43,32 @@ class MetricsView(View):
         metrics_list = list(PatientMetrics.objects.all().values())
         return JsonResponse(metrics_list, safe=False)
 
-    def post(self, request, number=1):
-        """
-        Http method to generate persons and save them to database
-        Example url to generate six persons: localhost:8000/person/6
-        :param number: number of generated persons, default is 1
-        :return: http status for created
-        """
+    @swagger_auto_schema(
+        request_body=MetricSwagger.post_body,
+        responses=MetricSwagger.post_responses,
+        operation_id='Generate metrics',
+        operation_description='This endpoint generates random metric or number of metrics',
+        operation_summary="Generate metric with random data"
+    )
+    def post(self, request):
+        number = 1
+        if request.body:
+            parsed_body = (json.loads(request.body))
+            number = parsed_body.get("number")
+            if number is None:
+                return HttpResponse(status=400)
         for i in range(0, number):
             metrics = self.metrics_service.create_metrics()
             metrics.save()
 
         return HttpResponse(status=201)
+
+    @swagger_auto_schema(
+        responses=MetricSwagger.delete_responses,
+        operation_id='Flush metrics',
+        operation_description='This endpoint flushes metric\'s table',
+        operation_summary="Flush table of metrics"
+    )
+    def delete(self, request):
+        PatientMetrics.objects.all().delete()
+        return HttpResponse(status=200)

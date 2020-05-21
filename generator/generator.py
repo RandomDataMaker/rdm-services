@@ -17,7 +17,6 @@ def generate_values_dynamically(model_description):
     elif 'distribution' in model_description:
         model = generate_distribution(model_description)
 
-
     else:
         raise Exception("Data model does not match any possible case")
 
