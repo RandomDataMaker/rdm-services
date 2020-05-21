@@ -20,12 +20,19 @@ class MetricSwagger:
         status.HTTP_500_INTERNAL_SERVER_ERROR: openapi.Response('INTERNAL SERVER ERROR')
     }
 
-    post_parameters = [
-        openapi \
-                .Parameter('number', in_=openapi.IN_PATH, description='Number of generated persons',
-                           type=openapi.TYPE_INTEGER, default=1)
-    ]
+    post_body = openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            required=['number'],
+            properties={
+                'number': openapi.Schema(type=openapi.TYPE_INTEGER, default=1)
+            },
+        )
 
     post_responses = {
-        status.HTTP_201_CREATED: openapi.Response('CREATED', MetricsSerializer)
+        status.HTTP_201_CREATED: openapi.Response('CREATED', MetricsSerializer),
+        status.HTTP_400_BAD_REQUEST: openapi.Response('BAD REQUEST')
+    }
+
+    delete_responses = {
+        status.HTTP_201_CREATED: openapi.Response('CREATED', MetricsSerializer),
     }

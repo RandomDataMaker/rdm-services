@@ -1,4 +1,5 @@
 from django.http import HttpResponse, JsonResponse
+from rest_framework.utils import json
 from rest_framework.views import APIView
 from drf_yasg.utils import swagger_auto_schema
 from person.models import Person
@@ -6,6 +7,7 @@ from person.person_service import PersonService
 from anonymization.anonymize import anonymize
 from person.serializer import PersonSerializer
 from person.swagger import PersonSwagger
+from django.http import QueryDict
 
 
 class PersonView(APIView):  # GenericAPIView
@@ -26,6 +28,7 @@ class PersonView(APIView):  # GenericAPIView
         responses=PersonSwagger.get_responses,
         operation_id='List of persons',
         operation_description='This endpoint returns list of persons in database or specified person',
+        operation_summary="Get all persons or find by pesel"
     )
     def get(self, request):
         pesel = request.GET.get('pesel')
@@ -46,33 +49,30 @@ class PersonView(APIView):  # GenericAPIView
             return JsonResponse(person_list, safe=False)
 
     @swagger_auto_schema(
+        request_body=PersonSwagger.post_body,
         responses=PersonSwagger.post_responses,
         operation_id='Generate person',
-        operation_description='This endpoint generates person with random personal data',
+        operation_description='This endpoint generates person or persons with random personal data',
+        operation_summary="Generate person with random data"
     )
     def post(self, request):
-        person = self.person_service.create_person()
-        person.save()
-        return HttpResponse(status=201)
-
-
-class PersonCreateView(APIView):
-    serializer_class = PersonSerializer
-    model = Person
-    queryset = Person.objects.all()
-
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.person_service = PersonService('resources/person.model.json')
-
-    @swagger_auto_schema(
-        manual_parameters=PersonSwagger.post_parameters,
-        responses=PersonSwagger.post_responses,
-        operation_id='Generate number of persons',
-        operation_description='This endpoint generates persons with random personal data',
-    )
-    def post(self, request, number=1):
+        number = 1
+        if request.body:
+            parsed_body = (json.loads(request.body))
+            number = parsed_body.get("number")
+            if number is None:
+                return HttpResponse(status=400)
         for i in range(0, number):
             person = self.person_service.create_person()
             person.save()
         return HttpResponse(status=201)
+
+    @swagger_auto_schema(
+        responses=PersonSwagger.delete_responses,
+        operation_id='Flush persons',
+        operation_description='This endpoint flushes person\'s table',
+        operation_summary="Flush table of persons"
+    )
+    def delete(self, request):
+        Person.objects.all().delete()
+        return HttpResponse(status=200)

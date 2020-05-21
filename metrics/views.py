@@ -1,4 +1,5 @@
 from django.http import HttpResponse, JsonResponse
+from rest_framework.utils import json
 from rest_framework.views import APIView
 
 from metrics.metrics_service import MetricsService
@@ -19,6 +20,7 @@ class MetricsView(APIView):
         responses=MetricSwagger.get_responses,
         operation_id='List of metrics',
         operation_description='This endpoint returns list of metrics or specified metric or metrics for one patient',
+        operation_summary="Get all metrics or find by id or patient id"
     )
     def get(self, request):
         metric_id = request.GET.get('id')
@@ -42,14 +44,31 @@ class MetricsView(APIView):
         return JsonResponse(metrics_list, safe=False)
 
     @swagger_auto_schema(
-        manual_parameters=MetricSwagger.post_parameters,
+        request_body=MetricSwagger.post_body,
         responses=MetricSwagger.post_responses,
         operation_id='Generate metrics',
-        operation_description='This endpoint generates random metrics',
+        operation_description='This endpoint generates random metric or number of metrics',
+        operation_summary="Generate metric with random data"
     )
-    def post(self, request, number=1):
+    def post(self, request):
+        number = 1
+        if request.body:
+            parsed_body = (json.loads(request.body))
+            number = parsed_body.get("number")
+            if number is None:
+                return HttpResponse(status=400)
         for i in range(0, number):
             metrics = self.metrics_service.create_metrics()
             metrics.save()
 
         return HttpResponse(status=201)
+
+    @swagger_auto_schema(
+        responses=MetricSwagger.delete_responses,
+        operation_id='Flush metrics',
+        operation_description='This endpoint flushes metric\'s table',
+        operation_summary="Flush table of metrics"
+    )
+    def delete(self, request):
+        PatientMetrics.objects.all().delete()
+        return HttpResponse(status=200)

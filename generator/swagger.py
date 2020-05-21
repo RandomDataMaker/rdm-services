@@ -4,19 +4,7 @@ from rest_framework import status
 from attributes.serializer import AttributeSerializer
 
 
-class AttributeSwagger:
-    get_parameters = [
-        openapi \
-            .Parameter('id', in_=openapi.IN_QUERY,
-                       description='Attribute id', type=openapi.TYPE_INTEGER),
-    ]
-
-    get_responses = {
-        status.HTTP_200_OK: openapi.Response('OK', AttributeSerializer),
-        status.HTTP_404_NOT_FOUND: openapi.Response('NOT FOUND'),
-        status.HTTP_500_INTERNAL_SERVER_ERROR: openapi.Response('INTERNAL SERVER ERROR')
-    }
-
+class GeneratorSwagger:
     post_body = openapi.Schema(
             type=openapi.TYPE_OBJECT,
             required=['number'],
