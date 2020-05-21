@@ -6,7 +6,7 @@ import random
 import logging
 
 
-class GeolocationService(models.Model):
+class GeolocationService:
     def create_geolocation(self):
         location = Geolocation()
         location.geojson = self.__generate_geolocation()
