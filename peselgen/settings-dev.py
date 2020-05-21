@@ -25,7 +25,7 @@ SECRET_KEY = 'c#*q^xzw!zcnkljloyz66kxgx$^*d@jcp0a4n0mqv(3oa%^$b+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['rdm.sarian.me']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -42,8 +42,7 @@ INSTALLED_APPS = [
     'person',
     'metrics',
     'generator',
-    'attributes',
-    'drf_yasg'
+    'attributes'
 ]
 
 MIDDLEWARE = [
@@ -87,8 +86,8 @@ DATABASES = {
         'NAME': 'peselgen',
         'USER': 'root',
         'PASSWORD': 'q1w2e3r4',
-        'HOST': 'db',   # Or an IP Address that your DB is hosted on
-        'PORT': '3306',
+        'HOST': '127.0.0.1',   # Or an IP Address that your DB is hosted on
+        'PORT': '33069',
     }
 }
 
