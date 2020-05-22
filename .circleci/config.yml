@@ -51,7 +51,7 @@ jobs:
       - run:
           name: Deploy Over SSH
           command: |
-            ssh deploy@sarian.me "cd /home/sarian/rdm-services && git pull && docker-compose up -d"
+            ssh deploy@sarian.me "cd /home/sarian/rdm-services && git pull && docker-compose up --force-recreate --build -d"
              
 workflows:
   staging:
