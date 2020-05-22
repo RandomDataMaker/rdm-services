@@ -15,7 +15,8 @@ class PersonSwagger:
                                    'id, first_name, last_name, pesel, password, email, phone, sex, birth_date\n'
                                    'To get all public send: none',
                        type=openapi.TYPE_ARRAY, items=openapi.Items(type=openapi.TYPE_STRING),
-                       default="first_name,last_name,pesel,password")
+                       default="first_name,last_name,pesel,password",
+                       example="first_name,last_name,pesel,password")
     ]
 
     get_responses = {
@@ -28,7 +29,7 @@ class PersonSwagger:
             type=openapi.TYPE_OBJECT,
             required=['number'],
             properties={
-                'number': openapi.Schema(type=openapi.TYPE_INTEGER, default=1)
+                'number': openapi.Schema(type=openapi.TYPE_INTEGER, default=1, example=1)
             },
         )
 

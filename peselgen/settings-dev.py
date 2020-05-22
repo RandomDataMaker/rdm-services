@@ -40,11 +40,12 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_swagger',
     'corsheaders',
+    'drf_yasg',
     'person',
     'metrics',
     'generator',
     'attributes',
-    'drf_yasg'
+    'geolocation',
 ]
 
 MIDDLEWARE = [

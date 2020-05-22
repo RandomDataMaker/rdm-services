@@ -34,5 +34,7 @@ ruamel.yaml.clib==0.2.0
 simplejson==3.17.0
 six==1.14.0
 sqlparse==0.3.0
+pycristoforo==2.0.0
+shapely==1.7.0
 uritemplate==3.0.1
 urllib3==1.25.9
