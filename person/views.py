@@ -1,25 +1,36 @@
 from django.http import HttpResponse, JsonResponse
-from django.views import View
+from rest_framework.utils import json
+from rest_framework.views import APIView
+from drf_yasg.utils import swagger_auto_schema
 from person.models import Person
 from person.person_service import PersonService
 from anonymization.anonymize import anonymize
+from person.serializer import PersonSerializer
+from person.swagger import PersonSwagger
+from django.http import QueryDict
 
 
-class PersonView(View):
+class PersonView(APIView):  # GenericAPIView
+    """
+        Person documentation
+    """
+
+    serializer_class = PersonSerializer
+    model = Person
+    queryset = Person.objects.all()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.person_service = PersonService('resources/person.model.json')
 
+    @swagger_auto_schema(
+        manual_parameters=PersonSwagger.get_parameters,
+        responses=PersonSwagger.get_responses,
+        operation_id='List of persons',
+        operation_description='This endpoint returns list of persons in database or specified person',
+        operation_summary="Get all persons or find by pesel"
+    )
     def get(self, request):
-        """
-        Http get method to get all persons or person with given pesel
-        and anonymized according to anonymize array (e.g. email,pesel or none )
-        Example url to get person by pesel: localhost:8000/person/?pesel=12345678901
-        :param pesel: if provided finds only person with this pesel
-        :param anonymize_array: array of attributes to anonymize, default - all
-        :return: JSON response
-        """
         pesel = request.GET.get('pesel')
         anonymize_array = request.GET.get('anonymize_array')
         if anonymize_array is None or anonymize_array == "":
@@ -34,20 +45,34 @@ class PersonView(View):
                 person = anonymize(person[0], anonymize_array)
                 return JsonResponse(person, safe=False)
         else:
-            person_list = list(Person.objects.all().values())
-            for person in person_list:
-                anonymize(person, anonymize_array)
+            person_list = [anonymize(person, anonymize_array) for person in list(Person.objects.all().values())]
             return JsonResponse(person_list, safe=False)
 
-    def post(self, request, number=1):
-        """
-        Http method to generate persons and save them to database
-        Example url to generate six persons: localhost:8000/person/6
-        :param number: number of generated persons, default is 1
-        :return: http status for created
-        """
+    @swagger_auto_schema(
+        request_body=PersonSwagger.post_body,
+        responses=PersonSwagger.post_responses,
+        operation_id='Generate person',
+        operation_description='This endpoint generates person or persons with random personal data',
+        operation_summary="Generate person with random data"
+    )
+    def post(self, request):
+        number = 1
+        if request.body:
+            parsed_body = (json.loads(request.body))
+            number = parsed_body.get("number")
+            if number is None:
+                return HttpResponse(status=400)
         for i in range(0, number):
-            # creating new object
             person = self.person_service.create_person()
             person.save()
         return HttpResponse(status=201)
+
+    @swagger_auto_schema(
+        responses=PersonSwagger.delete_responses,
+        operation_id='Flush persons',
+        operation_description='This endpoint flushes person\'s table',
+        operation_summary="Flush table of persons"
+    )
+    def delete(self, request):
+        Person.objects.all().delete()
+        return HttpResponse(status=200)

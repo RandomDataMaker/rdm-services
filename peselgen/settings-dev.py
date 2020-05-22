@@ -38,12 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_swagger',
     'corsheaders',
+    'drf_yasg',
     'person',
     'metrics',
     'generator',
     'attributes',
-    'geolocation'
+    'geolocation',
 ]
 
 MIDDLEWARE = [
