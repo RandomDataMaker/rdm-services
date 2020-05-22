@@ -15,7 +15,7 @@ class PersonSwagger:
                                    'id, first_name, last_name, pesel, password, email, phone, sex, birth_date\n'
                                    'To get all public send: none',
                        type=openapi.TYPE_ARRAY, items=openapi.Items(type=openapi.TYPE_STRING),
-                       default="none")
+                       default="first_name,last_name,pesel,password")
     ]
 
     get_responses = {
