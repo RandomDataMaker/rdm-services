@@ -60,15 +60,15 @@ class PersonService:
         # creating variable
         vowel = ["a", "e", "i", "o", "u", "y"]
         consonants = ["b", "c", "d", "g", "h", "j", "k", "l", "m", "n", "p", "r", "s", "t", "w", "z"]
-        male_surname_ends = ["ski", "cki", "dzki", "ak", "ek", "ik", "yk", "ki", "owicz", "eowicz", "ewicz", "el", "ny",
-                             "uk", "in", "ny"]
-        female_surname_ends = ["ska", "cka", "dzka", "ak", "ek", "ik", "yk", "ka", "owicz", "eowicz", "na", "ul", "uk"]
+        male_surname_ends = ["ski", "cki", "dzki", "k", "ki", "wicz", "n", "ny", "l"]
+        female_surname_ends = ["ska", "cka", "dzka", "k", "ka", "wicz", "na", "l"]
         surname = ""
         # generating the first 3 letters of surname
         surname = consonants[random.randint(0, len(consonants) - 1)].upper() \
                   + vowel[random.randint(0, len(vowel) - 1)] \
-                  + consonants[random.randint(0, len(consonants) - 1)]
-        # adding endings basic on sex
+                  + consonants[random.randint(0, len(consonants) - 1)] \
+                  + vowel[random.randint(0, len(vowel) - 1)]
+            # adding endings basic on sex
         if sex == 1:
             surname = surname + male_surname_ends[random.randint(0, len(male_surname_ends) - 1)]
         else:

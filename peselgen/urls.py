@@ -41,4 +41,6 @@ urlpatterns = [
     path('api/metrics/', include('metrics.urls')),
     path('api/generate/', include('generator.urls')),
     path('api/attributes/', include('attributes.urls')),
+    path('api/geolocation/', include('geolocation.urls')),
+
 ]

@@ -9,7 +9,7 @@ class GeneratorSwagger:
             type=openapi.TYPE_OBJECT,
             required=['number'],
             properties={
-                'number': openapi.Schema(type=openapi.TYPE_INTEGER, default=1)
+                'number': openapi.Schema(type=openapi.TYPE_INTEGER, default=1, example=1)
             },
         )
 

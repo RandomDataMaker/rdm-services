@@ -13,7 +13,8 @@ class PersonSwagger:
             .Parameter('anonymize_array', in_=openapi.IN_QUERY,
                        description='Choose elements to hide\n To get all public: none',
                        type=openapi.TYPE_ARRAY, items=openapi.Items(type=openapi.TYPE_STRING),
-                       default="id,first_name,last_name,pesel,password,email,phone,sex,birth_date")
+                       default="first_name,last_name,pesel,password",
+                       example="first_name,last_name,pesel,password")
     ]
 
     get_responses = {
@@ -26,7 +27,7 @@ class PersonSwagger:
             type=openapi.TYPE_OBJECT,
             required=['number'],
             properties={
-                'number': openapi.Schema(type=openapi.TYPE_INTEGER, default=1)
+                'number': openapi.Schema(type=openapi.TYPE_INTEGER, default=1, example=1)
             },
         )
 

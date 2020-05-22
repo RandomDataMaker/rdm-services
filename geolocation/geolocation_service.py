@@ -7,18 +7,18 @@ import logging
 
 
 class GeolocationService:
-    def create_geolocation(self):
+    def create_geolocation(self, country_name, points_number, properties):
         location = Geolocation()
-        location.geojson = self.__generate_geolocation()
+        location.geojson = self.__generate_geolocation(country_name, points_number, properties)
         location.person_id = self.__generate_person_id()
         logging.basicConfig(level=logging.DEBUG)
         logging.info(
             f"Created metrics {location.person_id} with created location {location.geojson[0]['geometry']['coordinates']}")
         return location
 
-    def __generate_geolocation(self):
-        country = pyc.get_shape("POL")
-        points = pyc.geoloc_generation(country, 1, "POL")
+    def __generate_geolocation(self, country_name, points_number, properties):
+        country = pyc.get_shape(country_name)
+        points = pyc.geoloc_generation(country, points_number, properties)
         pyc.geoloc_print(points, ',')
 
         return points
