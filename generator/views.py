@@ -45,9 +45,10 @@ class GeneratorView(APIView):
             metrics = self.metrics_service.create_metrics()
             metrics.save()
 
+        country_polygon = self.geolocation_service.generate_country_polygon('POL')
         for i in range(0, number):
             # creating new object
-            geolocation = self.geolocation_service.create_geolocation('POL', 1, 'POL')
+            geolocation = self.geolocation_service.create_geolocation(country_polygon, 1, 'POL')
             geolocation.save()
         return HttpResponse(status=201)
 
