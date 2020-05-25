@@ -56,6 +56,9 @@ class GeolocationView(APIView):
         country = 'POL'
         points_number = 1
         properties = country
+
+        country_polygon = self.geolocation_service.generate_country_polygon(country)
+
         if request.body:
             parsed_body = (json.loads(request.body))
             number = parsed_body.get("number")
@@ -68,7 +71,7 @@ class GeolocationView(APIView):
             if points_number is None:
                 return HttpResponse(status=400)
         for i in range(0, number):
-            location = self.geolocation_service.create_geolocation(country, points_number, properties)
+            location = self.geolocation_service.create_geolocation(country_polygon, points_number, properties)
             location.save()
 
         return HttpResponse(status=201)
