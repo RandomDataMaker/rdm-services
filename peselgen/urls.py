@@ -25,7 +25,7 @@ schema_view = get_schema_view(
    openapi.Info(
       title="RDM API",
       default_version='v1',
-      description='Abandon hope all ye who enter here',
+      description='Random Data Maker is a REST webservice for generation random data sets from a defined model, including personal data and medical metrics data for machine learning, tests, mocks etc..',
       # contact=openapi.Contact(email="contact@snippets.local"),
    ),
    public=True,
