@@ -45,7 +45,7 @@ And run the app:
 `/metrics` - method: GET - returns generated patient metrics  
 `/attributes` - method: GET - returns attributes records  
 `/geolocation` - method: GET -returns generated geojson   
-`/generate/<number>` - method: POST - generates in specified number: persons, metrics and attributes
+`/generate/<number>` - method: POST - generates in specified number: persons, metrics and attributes    
 `/generate/flush` - method: PUT - deletes all records from both database tables  
 `/generate/flush/<table>` - method: PUT - deletes all records from specified table, could be 'person', 'metrics' or 'attributes'  
 `/person/<number>` - method:POST - generates persons in specified number    
