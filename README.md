@@ -43,7 +43,8 @@ And run the app:
 ## Endpoints  
 `/person` - method: GET - returns generated persons  
 `/metrics` - method: GET - returns generated patient metrics 
-`/attributes` - method:GET - returns attributes records
+`/attributes` - method: GET - returns attributes records
+`/geolocation` - method: GET -returns generated geojson.
 `/generate/<number>` - method: POST - generates in specified number: persons, metrics and attributes
 `/generate/flush` - method: PUT - deletes all records from both database tables  
 `/generate/flush/<table>` - method: PUT - deletes all records from specified table, could be 'person', 'metrics' or 'attributes' 
@@ -88,7 +89,10 @@ Dynamic data model is defined in JSON format. It is used to specify what kind of
 * Generating datetime between two values:  
   - `min_date` - smallest datetime value that can be generated  
   - `max_date` - biggest datetime value that can be generated  
-  - `date_format`: optional - default format is: '%m/%d/%Y %I:%M %p'  
+  - `date_format`: optional - default format is: '%m/%d/%Y %I:%M %p'
+  ### Geolocation model
+* `person_id`: varchar, foreign key references `id` from person
+* `geojson`: json, includes location based on geojson model
 
 ## How it works?
 Random Data Maker is a rest api app and has defined endpoints to communicate with it. It has three kinds of endpoints: generating number of random records (POST), getting them from database in the form of JSON (GET) and flushing tables (PUT). When post method is used it generates random data e.g personal data, metrics data using apps own random data generator and saves it in database. This random data generator takes JSON file with defined data model and uses it to generate new data. When data is in a database it can be accessed with get methods. Project was originally made as support for medical machine learning system OCULUS Project
