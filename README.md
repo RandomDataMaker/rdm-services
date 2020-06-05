@@ -41,8 +41,8 @@ And run the app:
 * `python manage.py runserver --settings=peselgen.settings-dev`
 
 ## Endpoints  
-`/person` - method: GET - returns generated persons  
-`/metrics` - method: GET - returns generated patient metrics 
+`/person` - method: GET - returns generated persons
+`/metrics` - method: GET - returns generated patient metrics
 `/attributes` - method: GET - returns attributes records
 `/geolocation` - method: GET -returns generated geojson
 `/generate/<number>` - method: POST - generates in specified number: persons, metrics and attributes
