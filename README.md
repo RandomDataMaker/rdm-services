@@ -47,10 +47,10 @@ And run the app:
 `/geolocation` - method: GET -returns generated geojson   
 `/generate/<number>` - method: POST - generates in specified number: persons, metrics and attributes
 `/generate/flush` - method: PUT - deletes all records from both database tables  
-`/generate/flush/<table>` - method: PUT - deletes all records from specified table, could be 'person', 'metrics' or 'attributes' 
-`/person/<number>` - method:POST - generates persons in specified number
-`/metrics/<number>` - method:POST - generates patient metrics in specified number
-`/attributes/<number>` - method:POST - generates attributes from model in specified number
+`/generate/flush/<table>` - method: PUT - deletes all records from specified table, could be 'person', 'metrics' or 'attributes'  
+`/person/<number>` - method:POST - generates persons in specified number    
+`/metrics/<number>` - method:POST - generates patient metrics in specified number   
+`/attributes/<number>` - method:POST - generates attributes from model in specified number    
 
   
 ## Data model  
