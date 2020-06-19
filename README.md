@@ -42,22 +42,26 @@ And run the app:
 
 ## Endpoints
 `/generate/<number>` - method: POST - generates specified amount of: persons, metrics, geolocations and attributes  
+  
 `/person`  
   - method: GET - returns generated persons  
   - `/<number>` method: POST - generates specified amount of persons  
-  - method: DELETE - deletes all persons    
+  - method: DELETE - deletes all persons  
+  
 `/metrcis`  
   - method: GET - returns generated metrics  
   - `/<number>` method: POST - generates specified amount of metrics  
-  - method: DELETE - deletes all metrics    
-`/attributes`  
+  - method: DELETE - deletes all metrics  
+    
+  `/attributes`  
   - method: GET - returns generated attributes  
   - `/<number>` method: POST - generates specified amount of attributes  
-  - method: DELETE - deletes all attributes    
+  - method: DELETE - deletes all attributes  
+  
 `/geolocation`  
   - method: GET - returns generated geolocation collections  
   - `/<number>` method: POST - generates specified amount of geolocation collections  
-  - method: DELETE - deletes all geolocations    
+  - method: DELETE - deletes all geolocations  
   
 ## Data model  
 ### Person model  
