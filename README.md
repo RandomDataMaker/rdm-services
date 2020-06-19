@@ -41,27 +41,29 @@ And run the app:
 * `python manage.py runserver --settings=peselgen.settings-dev`
 
 ## Endpoints
-`/generate/<number>` - method: POST - generates specified amount of: persons, metrics, geolocations and attributes  
+`/generate` - method: POST - generates specified number of: persons, metrics, geolocations and attributes  
   
 `/person`  
   - method: GET - returns generated persons  
-  - `/<number>` method: POST - generates specified amount of persons  
+  - method: POST - generates specified number of persons  
   - method: DELETE - deletes all persons  
   
 `/metrcis`  
   - method: GET - returns generated metrics  
-  - `/<number>` method: POST - generates specified amount of metrics  
+  - method: POST - generates specified number of metrics  
   - method: DELETE - deletes all metrics  
     
   `/attributes`  
   - method: GET - returns generated attributes  
-  - `/<number>` method: POST - generates specified amount of attributes  
+  - method: POST - generates specified number of attributes  
   - method: DELETE - deletes all attributes  
   
 `/geolocation`  
   - method: GET - returns generated geolocation collections  
-  - `/<number>` method: POST - generates specified amount of geolocation collections  
+  - method: POST - generates specified number of geolocation collections, number of points to generate and conutry can be specified in body parameters  
   - method: DELETE - deletes all geolocations  
+  
+Number of records to generate can be specified in body parameter  
   
 ## Data model  
 ### Person model  
