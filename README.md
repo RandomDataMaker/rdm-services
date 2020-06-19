@@ -48,7 +48,7 @@ And run the app:
   - method: POST - generates specified number of persons  
   - method: DELETE - deletes all persons  
   
-`/metrcis`  
+`/metrics`  
   - method: GET - returns generated metrics  
   - method: POST - generates specified number of metrics  
   - method: DELETE - deletes all metrics  
