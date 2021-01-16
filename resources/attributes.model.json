@@ -2,6 +2,51 @@
   "model":
   [
     {
+      "key": "voivodeship",
+      "count": 1,
+      "array": ["dolnośląskie","kujawsko-pomorskie","lubelskie","lubuskie","łódzkie","małopolskie","mazowieckie","opolskie","podkarpackie","podlaskie","pomorskie","śląskie","świętokrzyskie","warmińsko-mazurskie","wielkopolskie","zachodniopomorskie"]
+    },
+    {
+      "key": "district",
+      "count": 1,
+      "array": ["bielski","brzeski","grodziski","krośnieński","nowodworski","opolski","ostrowski","średzki","świdnicki","tomaszowski"]
+    },
+    {
+      "key": "municipality",
+      "count": 1,
+      "array": ["Adamów","Aleksandrów","Baranów","Białobrzegi","Biała","Biskupiec","Bobrowniki","Bolesław","Bolesławiec","Brodnica","Chmielnik","Czarna","Czermin","Dąbie","Dobre","Gorzyce","Janów","Jarocin","Józefów","Kamień","Kolno","Krasne","Lipno","Łubnice","Maszewo","Olesno","Piaski","Radków","Sławno","Słubice","Świdnica","Ujazd","Wąsosz","Zakrzew","Zduny"]
+    },
+    {
+      "key": "city",
+      "count": 1,
+      "array": ["Wrocław","Bydgoszcz","Toruń","Lublin","Gorzów Wielkopolski","Zielona Góra","Łódź","Kraków","Warszawa","Opole","Rzeszów","Białystok","Gdańsk","Katowice","Kielce","Olsztyn","Poznań","Szczecin"]
+    },
+    {
+      "key": "street",
+      "count": 1,
+      "array": ["Polna","Leśna","Słoneczna","Krótka","Szkolna","Ogrodowa","Lipowa","Brzozowa","Łąkowa","Kwiatowa","1 Maja","11 Listopada","gen. Władysława Andersa","Jana Pawła II","Juliana Tuwima","Kazimierza Pułaskiego","ks. Jerzego Popiełuszki","św. Barbary"]
+    },
+    {
+      "key": "houseNumber",
+      "minimum": 1,
+      "maximum": 100
+    },
+    {
+      "key": "apartmentNumber",
+      "count": 1,
+      "array": ["1B", "22C", "13z","2123","1231a","90p"]
+    },
+    {
+      "key": "post",
+      "count": 1,
+      "array": ["Adamów","Aleksandrów","Baranów","Białobrzegi","Biała","Biskupiec","Bobrowniki","Bolesław","Bolesławiec","Brodnica","Chmielnik","Czarna","Czermin","Dąbie","Dobre","Gorzyce","Janów","Jarocin","Józefów","Kamień","Kolno","Krasne","Lipno","Łubnice","Maszewo","Olesno","Piaski","Radków","Sławno","Słubice","Świdnica","Ujazd","Wąsosz","Zakrzew","Zduny"]
+    },
+    {
+      "key": "postalCode",
+      "count": 1,
+      "array": ["00-919","00-977","00-999","62-200","00-950","00-001","12-371"]
+    },
+    {
       "key": "key1",
       "count": 1,
       "array": ["do", "re", "mi", "fa", "so", "la", "si"]
