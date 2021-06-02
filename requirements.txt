@@ -37,4 +37,4 @@ sqlparse==0.3.0
 pycristoforo==2.0.0
 shapely==1.7.0
 uritemplate==3.0.1
-urllib3==1.25.9
+urllib3==1.26.5
